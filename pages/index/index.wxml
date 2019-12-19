@@ -1,0 +1,43 @@
+<search/>
+<swiper indicator-dots autoplay>
+  <block wx:for="{{swiperData}}" wx:key="goods_id">
+    <swiper-item>
+      <navigator url="{{ item.navigator_url }}" open-type="{{item.open_type}}">
+        <image src="{{ item.image_src }}" mode="widthFix"></image>
+      </navigator>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="nav">
+  <block wx:for="{{navData}}" wx:key="name">
+      <image src="{{item.image_src}}" mode="aspectFit"></image>
+  </block>
+</view>
+<view class="product">
+  <block wx:for="{{proData}}" wx:key="index">
+    <image src="{{item.floor_title.image_src}}" class="title" mode="widthFix"></image>
+    <view class="detail">
+      <navigator url="{{ item.product_list[0].navigator_url }}">
+        <image src="{{item.product_list[0].image_src}}" class="left"></image>
+      </navigator>
+      <view class="right">
+        <navigator url="{{ item.product_list[1].navigator_url }}">
+          <image src="{{item.product_list[1].image_src}}"></image>
+        </navigator>
+        <navigator url="{{ item.product_list[2].navigator_url }}">
+          <image src="{{item.product_list[2].image_src}}"></image>
+        </navigator>
+        <navigator url="{{ item.product_list[3].navigator_url }}">
+          <image src="{{item.product_list[3].image_src}}"></image>
+        </navigator>
+        <navigator url="{{ item.product_list[4].navigator_url }}">
+          <image src="{{item.product_list[4].image_src}}"></image>
+        </navigator>
+      </view>
+    </view>
+  </block>
+</view>
+<view class="to-top" bindtap="toTop">
+  <text>↑</text>
+  <text>顶部</text>
+</view>

@@ -1,0 +1,63 @@
+swiper{
+  height: 340rpx;
+}
+swiper image{
+  width: 750rpx;
+}
+.nav{
+  height: 190rpx;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.nav image{
+  height: 135rpx;
+}
+.product .title{
+  width: 750rpx;
+  height: 90rpx;
+  margin-top: 10rpx;
+}
+.product .detail{
+  height: 390rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 15rpx;
+}
+.detail .left{
+  flex: 1;
+  width: 230rpx;
+  height: 390rpx;
+  margin-right: 10rpx; 
+}
+.detail .right{
+  flex: 2;
+}
+.detail .right image{
+  width: 230rpx;
+  height: 190rpx;
+  margin-right: 10rpx; 
+}
+.detail .right navigator{
+  float: left;
+  width: 230rpx;
+  height: 190rpx;
+  margin-right: 10rpx;  
+  margin-bottom: 10rpx;
+}
+.to-top{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255,.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000;
+  position: fixed;
+  right: 20rpx;
+  bottom: 50rpx;
+}

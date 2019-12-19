@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "search":"/components/search/search"
+  },
+  "navigationBarTitleText": "淘淘乐",
+  "backgroundColor": "#eeeeee",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false
+}

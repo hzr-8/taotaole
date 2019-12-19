@@ -16,10 +16,10 @@
       <view class="product-list">
         <!-- 三级内容 -->
         <block wx:for="{{item.children}}" wx:key="cat_id" wx:for-item="item2">
-          <view class="product-list-item">
-            <image src="{{item2.cat_icon}}"></image>
+          <navigator class="product-list-item" url="/pages/goods_list/index?query={{item2.cat_name}}&cid={{item2.cat_id}}">
+            <image src="{{item2.cat_icon}}" lazy-load></image>
             <text>{{item2.cat_name}}</text>
-          </view>
+          </navigator>
         </block>
       </view>
     </block>

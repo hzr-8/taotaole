@@ -5,18 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cateData:[],
-    rightData:[],
-    activeIndex:0
+    cateData: wx.getStorageSync('cateData') || [],
+    rightData: wx.getStorageSync('rightData') || [],
+    activeIndex: 0
   },
   //切换tab索引的事件函数
-  changeTab(e){
+  changeTab(e) {
     // console.log(e)
     //点击的时候，主动更新activeIndex的值
     const index = e.currentTarget.dataset.index;
     this.setData({
-      activeIndex:index,
-      rightData:this.data.cateData[index].children
+      activeIndex: index,
+      rightData: this.data.cateData[index].children
     })
   },
   /**
@@ -24,17 +24,23 @@ Page({
    */
   onLoad: function (options) {
     //发起请求
-    wx.request({
-      url:'https://api.zbztb.cn/api/public/v1/categories',
-      success:res=>{
-        // console.log(res)
-        this.setData({
-          cateData:res.data.message,
-          //将右边数据保存到rightData中
-          rightData:res.data.message[0].children
-        })
-      }
-    })
+    if (this.data.cateData.length === 0) {
+      wx.request({
+        url: 'https://api.zbztb.cn/api/public/v1/categories',
+        success: res => {
+          // console.log(res)
+          const cateData = res.data.message;
+          const rightData = cateData[0].children;
+          wx.setStorageSync('cateData', cateData);
+          wx.setStorageSync('rightData',rightData);
+          this.setData({
+            cateData,
+            //将右边数据保存到rightData中
+            rightData
+          })
+        }
+      })
+    }
   },
 
   /**

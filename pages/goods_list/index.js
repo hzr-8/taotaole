@@ -1,5 +1,6 @@
 // pages/goods_list/index.js
 const app = getApp()
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
 import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
 
@@ -7,13 +8,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsData:{},
-    tabIndex:0,
-    pagenum:1,
-    query:'',
-    cid:0
+    goodsData: {},
+    tabIndex: 0,
+    pagenum: 1,
+    query: '',
+    cid: 0,
+    goods: [],
+    total: 0,
+    pagesize:10
   },
-  changeTab(e){
+  changeTab(e) {
     // console.log(e);
     const tabIndex = +e.currentTarget.dataset.index
     this.setData({
@@ -26,7 +30,10 @@ Page({
    */
   onLoad: function (options) {
     // console.log(options);
-    const {cid,query} = options
+    const {
+      cid,
+      query
+    } = options
     // console.log(cid);
     /* wx.request({
       url:'https://api.zbztb.cn/api/public/v1/goods/search',
@@ -44,20 +51,22 @@ Page({
       }
     }) */
     app.myRequest({
-      url:'goods/search',
-      data:{
+      url: 'goods/search',
+      data: {
         query,
         cid,
-        pagenum:this.data.goodsData.pagenum,
-        pagesize:10
+        pagenum: this.data.goodsData.pagenum,
+        pagesize: this.data.pagesize
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res);
       this.setData({
-        goodsData:res,
-        pagenum:res.pagenum,
+        goodsData: res,
+        pagenum: res.pagenum,
         cid,
-        query
+        query,
+        goods: res.goods,
+        total: res.total
       })
     })
   },
@@ -96,18 +105,19 @@ Page({
   onPullDownRefresh: function () {
     console.log('下拉刷新');
     app.myRequest({
-      url:'goods/search',
-      data:{
-        query:this.data.query,
-        cid:this.data.cid,
-        pagenum:this.data.pagenum,
-        pagesize:10
+      url: 'goods/search',
+      data: {
+        query: this.data.query,
+        cid: this.data.cid,
+        pagenum: this.data.pagenum,
+        pagesize: 10
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res);
       this.setData({
-        goodsData:res,
-        pagenum:res.pagenum
+        goodsData: res,
+        pagenum: res.pagenum,
+        goods: res.goods
       })
     })
   },
@@ -116,7 +126,34 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log("上拉加载");
+    if (this.data.pagenum < Math.ceil(this.data.total / this.data.pagesize)) {
+      //页面先加1
+      this.setData({
+        pagenum: ++this.data.pagenum
+      })
+      app.myRequest({
+        url: 'goods/search',
+        data: {
+          query: this.data.query,
+          cid: this.data.cid,
+          pagenum: this.data.pagenum,
+          pagesize: 10
+        }
+      }).then(res => {
+        console.log(res);
+        this.setData({
+          goodsData: res,
+          pagenum: res.pagenum,
+          goods: this.data.goods.concat(res.goods)
+        })
+      })
+    } else {
+      //弹出提示框
+      wx.showToast({
+        title: "我是有底线的!"
+      })
+    }
   },
 
   /**

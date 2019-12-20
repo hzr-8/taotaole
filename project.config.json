@@ -50,9 +50,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
+					"name": "pages/goods_list/index",
+					"pathName": "pages/goods_list/index",
+					"query": "query=创维&cid=9",
 					"scene": null
 				}
 			]

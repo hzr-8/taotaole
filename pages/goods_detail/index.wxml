@@ -1,2 +1,37 @@
-<!--pages/goods_detail/index.wxml-->
-<text>pages/goods_detail/index.wxml</text>
+<!-- pages/goods_detail/index.wxml -->
+<!-- 轮播图 -->
+<swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" class="slider-swiper">
+  <block wx:for="{{detailData.pics}}" wx:key="pics_id">
+    <swiper-item>
+      <image class="swiper-image" src="{{item.pics_big}}" mode="aspectFill" />
+    </swiper-item>
+  </block>
+</swiper>
+<view class="goods-detail">
+  <text class="goods-price">￥{{detailData.goods_price}}</text>
+  <view class="goods-name">
+    <text class="goods-name-left">{{detailData.goods_name}}</text>
+    <text class="collect">收藏</text>
+  </view>
+  <text class="express">快递：免运费</text>
+</view>
+<!-- 富文本处理 -->
+<view class="goods-content">
+  <text class="goods-content-title">图文详情</text>
+  <rich-text nodes="{{ introduce }}"></rich-text>
+</view>
+<view class="fixed-bar">
+  <view class="bar-item">
+    <!-- 通过按钮打开客服功能，按钮透明度为0 -->
+    <button open-type="contact">客服</button>
+    客服
+  </view>
+  <view class="bar-item">
+    <!-- 通过按钮打开分享功能，按钮透明度为0 -->
+    <button open-type="share">分享</button>
+    分享
+  </view>
+  <view class="bar-item" bindtap="goToCart">购物车</view>
+  <view class="bar-btn">加入购物车</view>
+  <view class="bar-btn">立即购买</view>
+</view>

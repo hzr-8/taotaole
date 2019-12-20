@@ -5,14 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    detailData:{},
+    introduce:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const{goods_id} = options
+    wx.request({
+      url:"https://api.zbztb.cn/api/public/v1/goods/detail",
+      data:{goods_id:goods_id},
+      success:res=>{
+        this.setData({
+          detailData:res.data.message,
+          introduce: res.data.message.goods_introduce.replace(/jpg.+?webp/g, 'jpg')
+        })
+      }
+    })
   },
 
   /**

@@ -9,10 +9,10 @@
 <view class="product-list">
   <block wx:for="{{goodsData.goods}}" wx:key="goods_id">
     <navigator class="product-item" url="/pages/goods_detail/index?goods_id={{item.goods_id}}">
-      <image class="product-item-left" src="{{item.goods_small_logo}}" />
+      <image class="product-item-left" src="{{item.goods_small_logo||'http://image2.suning.cn/uimg/b2c/newcatentries/0070078057-000000000634917020_1_400x400.jpg'}}" />
       <view class="product-item-right">
         <view class="product-name">{{item.goods_name}}</view>
-        <view class="product-price">{{item.goods_price}}</view>
+        <view class="product-price">{{item.goods_price||'888'}}</view>
       </view>
     </navigator>
   </block>

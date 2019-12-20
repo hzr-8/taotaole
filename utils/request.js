@@ -3,7 +3,7 @@ const baseURL = 'https://api.zbztb.cn/api/public/v1/';
 export const myRequest = (params) => {
   // 显示加载框
   wx.showLoading({
-    title: '网管，好卡啊...',
+    title: '玩命加载中...',
   });
   return new Promise((resolve, reject) => {
     // 发起请求

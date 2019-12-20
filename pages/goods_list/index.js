@@ -103,6 +103,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    //下拉刷新重置pagenum
+    this.data.pagenum = 1
     console.log('下拉刷新');
     app.myRequest({
       url: 'goods/search',
@@ -151,7 +153,8 @@ Page({
     } else {
       //弹出提示框
       wx.showToast({
-        title: "我是有底线的!"
+        title: "我是有底线的!",
+        icon:"none"
       })
     }
   },

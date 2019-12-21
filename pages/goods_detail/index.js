@@ -8,6 +8,12 @@ Page({
     detailData:{},
     introduce:''
   },
+  //查看图片
+  checkPhoto(e){
+    wx.previewImage({
+      urls:[e.currentTarget.dataset.url]
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

@@ -23,11 +23,11 @@
           </navigator>
           <!-- 数量 -->
           <view class="count">
-            <view bind:tap="changeCount" data-number="-1" data-index="{{index}}" class="count-btn">
+            <view bind:tap="changeCount" data-number="{{-1}}" data-index="{{index}}" class="count-btn">
               -
             </view>
             <view class="count-number">{{item.goods_count}}</view>
-            <view bindtap="changeCount" data-number="1" data-index="{{index}}" class="count-btn">
+            <view bindtap="changeCount" data-number="{{1}}" data-index="{{index}}" class="count-btn">
               +
             </view>
           </view>
@@ -46,10 +46,10 @@
     <view class="total">
       <view class="total-top">
         <text class="total-text">合计：</text>
-        <text class="total-price">9999</text>
+        <text class="total-price">{{ totalMoney }}</text>
       </view>
       <view class="total-down">包含运费</view>
     </view>
   </view>
-  <view class="bar-btn">结算（3）</view>
+  <view class="bar-btn">结算（{{ totalCount }}）</view>
 </view>

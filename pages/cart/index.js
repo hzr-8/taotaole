@@ -5,7 +5,47 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cartArr:[]
+    cartArr:[],
+    totalMoney:0,
+    totalCount:0
+  },
+  //加减数量事件
+  changeCount(e){
+    // console.log(e);
+    const{
+      number,
+      index,
+    } = e.currentTarget.dataset;
+    //获取列表数据
+    const {cartArr} = this.data
+    //判断数量不能为负数
+    if(cartArr[index].goods_count===1&&number===-1){
+      wx.showModal({
+        content: '你真的不要我了吗',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if(result.confirm){
+            //删除商品
+            cartArr.splice(index,1)
+          }
+        },
+      });
+    }else{
+      //改变number数量
+      cartArr[index].goods_count += number
+      this.setData({cartArr})
+      //更新本地存储
+      wx.setStorageSync("cartArr", cartArr);
+    }
+  },
+
+  //更新总价格，总数量，本地存储
+  updataCart(cartArr){
+    
   },
 
   /**

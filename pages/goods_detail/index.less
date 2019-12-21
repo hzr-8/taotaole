@@ -9,6 +9,9 @@
   width: 750rpx;
   height: 750rpx;
 }
+.goods-detail{
+  padding: 10rpx;
+}
 .goods-detail .goods-price{
   font-size: 40rpx;
   color: #eb4450;
@@ -16,14 +19,20 @@
 .goods-name{
   display: flex;
   justify-content: space-between;
-  margin: 40rpx 0;
+  font-size: 30rpx;
+  padding: 30rpx 0;
 }
-.collect{
-  color: #999;
-  width: 100px;
-  padding-left: 50rpx;
-  padding-top: 20rpx;
+.goods-name-left{
+  width: 516rpx;
+}
+.goods-name-right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 140rpx;
   border-left: 1rpx solid #999;
+  color: #999;
 }
 .express{
   color: #999;
@@ -39,6 +48,8 @@
 .goods-content-title{
   font-size: 40rpx;
   color: #ec505c;
+  font-weight: bolder;
+  padding-left: 10rpx;
 }
 
 .fixed-bar{
@@ -54,6 +65,7 @@
 .bar-item{
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 24rpx;

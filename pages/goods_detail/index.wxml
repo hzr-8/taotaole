@@ -1,9 +1,14 @@
 <!-- pages/goods_detail/index.wxml -->
 <!-- 轮播图 -->
 <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" class="slider-swiper">
-  <block wx:for="{{detailData.pics}}" wx:key="pics_id">
+  <block wx:for="{{detailData.pics}}" wx:key="pics_id" wx:if="{{detailData.pics}}">
     <swiper-item>
       <image class="swiper-image" src="{{item.pics_big}}" mode="aspectFill" />
+    </swiper-item>
+  </block>
+  <block>
+    <swiper-item>
+      <image class="swiper-image" src="http://image2.suning.cn/uimg/b2c/newcatentries/0000000000-000000000826147951_1_800x800.jpg" mode="aspectFill" />
     </swiper-item>
   </block>
 </swiper>
@@ -11,7 +16,10 @@
   <text class="goods-price">￥{{detailData.goods_price}}</text>
   <view class="goods-name">
     <text class="goods-name-left">{{detailData.goods_name}}</text>
-    <text class="collect">收藏</text>
+    <view class="goods-name-right">
+      <icon class="iconfont icon-shoucang" />
+      <text class="collect">收藏</text>
+    </view>
   </view>
   <text class="express">快递：免运费</text>
 </view>
@@ -23,15 +31,19 @@
 <view class="fixed-bar">
   <view class="bar-item">
     <!-- 通过按钮打开客服功能，按钮透明度为0 -->
+    <icon class="iconfont icon-kefu" />
     <button open-type="contact">客服</button>
     客服
   </view>
   <view class="bar-item">
     <!-- 通过按钮打开分享功能，按钮透明度为0 -->
+    <icon class="iconfont icon-fenxiang" />
     <button open-type="share">分享</button>
     分享
   </view>
-  <view class="bar-item" bindtap="goToCart">购物车</view>
+  <view class="bar-item" bindtap="goToCart">
+    <icon class="iconfont icon-gouwuche" />购物车
+  </view>
   <view class="bar-btn">加入购物车</view>
   <view class="bar-btn">立即购买</view>
 </view>

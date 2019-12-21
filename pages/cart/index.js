@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    cartArr:[]
   },
 
   /**
@@ -26,7 +26,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const cartArr = wx.getStorageSync('cartArr') || [];
+    this.setData({
+      cartArr
+    })
+    console.log(this.data.cartArr);
   },
 
   /**
@@ -40,7 +44,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**

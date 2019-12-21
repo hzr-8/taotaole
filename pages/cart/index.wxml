@@ -1,6 +1,6 @@
 <!-- pages/cart/index.wxml -->
 <view class="address">
-  <button>获取收获地址</button>
+  <button bindtap="getAddressHandle">+获取收货地址</button>
 </view>
 <view class="cart">
   <!-- 标题 -->
@@ -52,4 +52,9 @@
     </view>
   </view>
   <view class="bar-btn">结算（{{totalCount}}）</view>
+</view>
+<!-- 购物车为空 -->
+<view class="empty-cart" wx:if="{{ cartArr.length === 0 }}">
+  <image class="empty-cart-svg" src="/images/cart.svg"></image>
+  <navigator class="empty-cart-btn" url="/pages/index/index" open-type="switchTab">去首页</navigator>
 </view>

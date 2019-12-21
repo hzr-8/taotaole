@@ -2,6 +2,14 @@
 page{
   background: #f4f4f4;
 }
+.address{
+  height: 200rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
 .cart{
   background: #fff;
 }
@@ -106,4 +114,26 @@ page{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/* 购物车为空 */
+.empty-cart{
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  left:0;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.empty-cart-svg{
+  width: 400rpx;
+  height: 400rpx;
+}
+.empty-cart-btn{
+  border:1rpx solid red;
+  padding: 30rpx;
+  border-radius: 10rpx;
 }

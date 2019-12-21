@@ -10,6 +10,42 @@ Page({
     totalCount:0,
     checkAll: false
   },
+  //获取收获地址
+  getAddressHandle(){
+    //获取用户授权
+    wx.getSetting({
+      success: (result)=>{
+        console.log(result);
+        console.log(result.authSetting);
+        console.log(result.authSetting['scope.address'])
+        // 如果用户点击了拒绝，需要引导用户重新在设置界面开启，否则收货地址接口无法调用
+        if (result.authSetting['scope.address'] === false){
+          // 打开用户设置界面
+          wx.openSetting({
+            success:res=>{
+              // console.log(res);
+              // 如果用户在设置界面开启了授权
+              if (res.authSetting['scope.address'] === true){
+                // // 通过 API 方式调用收货地址
+                wx.chooseAddress({
+
+                })
+              }
+            }
+          });
+        }
+        // false      !!授权窗口点击了取消-用户拒绝了授权 - 打开设置界面 - 让用户点击开启授权
+        // undefined  从来没有调用过授权请求的情况
+        // true       授权窗口点击了确定-用户授权了
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+    // 通过 API 方式调用收货地址
+    wx.chooseAddress({
+
+    })
+  },
   //加减数量事件
   changeCount(e){
     // console.log(e);
@@ -32,6 +68,8 @@ Page({
           if(result.confirm){
             //删除商品
             cartArr.splice(index,1)
+            // 更新数据
+            this.updateCart(cartArr);
           }
         },
       });

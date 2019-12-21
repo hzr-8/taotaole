@@ -10,8 +10,13 @@ page{
   justify-content: center;
   margin-bottom: 20rpx;
 }
+.address-info{
+  display: flex;
+  flex-direction: column;
+}
 .cart{
   background: #fff;
+  margin-bottom: 110rpx;
 }
 .cart-title{
   padding: 10rpx;

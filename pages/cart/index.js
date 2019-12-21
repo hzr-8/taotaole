@@ -8,7 +8,35 @@ Page({
     cartArr:[],
     totalMoney:0,
     totalCount:0,
-    checkAll: false
+    checkAll: false,
+    address:{}
+  },
+
+  chooseAddressMain() {
+    // 调用起微信内置的收货地址功能 - 微信原生的界面 - 开发者不可编辑
+    wx.chooseAddress({
+      success: res => {
+        console.log(res);
+        const {
+          userName, telNumber, provinceName, cityName, countyName, detailInfo, postalCode
+        } = res;
+
+        const address = {
+          userName,
+          telNumber,
+          postalCode,
+          addressDetail: `${provinceName}${cityName}${countyName}${detailInfo}`
+      }
+        // 更新页面数据
+        this.setData({
+          address
+        });
+
+        // 本地存储保存一下
+        wx.setStorageSync('address', address)
+
+      }
+    })
   },
   //获取收获地址
   getAddressHandle(){
@@ -27,24 +55,19 @@ Page({
               // 如果用户在设置界面开启了授权
               if (res.authSetting['scope.address'] === true){
                 // // 通过 API 方式调用收货地址
-                wx.chooseAddress({
-
-                })
+                this.chooseAddressMain()
               }
             }
           });
+        }else{
+          // // 通过 API 方式调用收货地址
+          this.chooseAddressMain()
         }
         // false      !!授权窗口点击了取消-用户拒绝了授权 - 打开设置界面 - 让用户点击开启授权
         // undefined  从来没有调用过授权请求的情况
         // true       授权窗口点击了确定-用户授权了
       },
-      fail: ()=>{},
-      complete: ()=>{}
     });
-    // 通过 API 方式调用收货地址
-    wx.chooseAddress({
-
-    })
   },
   //加减数量事件
   changeCount(e){
@@ -149,7 +172,12 @@ Page({
     this.setData({
       cartArr
     })
-    console.log(this.data.cartArr);
+    const address = wx.getStorageSync('address') || {}
+    this.setData({
+      address
+    })
+    console.log(this.data.cartArr,this.data.address);
+    //更新数据
     this.updateCart(cartArr)
   },
 

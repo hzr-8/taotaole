@@ -1,6 +1,12 @@
 <!-- pages/cart/index.wxml -->
-<view class="address">
-  <button bindtap="getAddressHandle">+获取收货地址</button>
+<view class="address" bindtap="getAddressHandle">
+  <view class="address-empty" wx:if="{{ !address.userName }}">
+    <button>+获取收货地址</button>
+  </view>
+  <view class="address-info" wx:else>
+    <text>用户名：{{ address.userName }}    {{ address.telNumber }}</text>
+    <text>收货地址：{{ address.addressDetail }}</text>
+  </view>
 </view>
 <view class="cart">
   <!-- 标题 -->
@@ -11,7 +17,7 @@
     <block wx:for="{{cartArr}}" wx:key="goods_id">
       <view class="cart-item">
         <view class="cart-item-left">
-          <radio color="#da5155" checked="{{item.goods_checked}}" bindtap="changeCheck" data-index="{{ index }}"/>
+          <radio color="#da5155" checked="{{item.goods_checked}}" bindtap="changeCheck" data-index="{{ index }}" />
         </view>
         <view class="cart-item-right">
           <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}" class="product-item">

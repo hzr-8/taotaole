@@ -7,7 +7,8 @@ Page({
   data: {
     cartArr:[],
     totalMoney:0,
-    totalCount:0
+    totalCount:0,
+    checkAll: false
   },
   //加减数量事件
   changeCount(e){
@@ -37,15 +38,55 @@ Page({
     }else{
       //改变number数量
       cartArr[index].goods_count += number
-      this.setData({cartArr})
-      //更新本地存储
-      wx.setStorageSync("cartArr", cartArr);
+      this.updateCart(cartArr)
     }
   },
 
+  //改变选中状态
+  changeCheck(e){
+    const{
+      //当前商品索引值
+      index
+    } = e.currentTarget.dataset
+    const{cartArr} = this.data
+     // 改变按钮选中状态
+    cartArr[index].goods_checked = !cartArr[index].goods_checked;
+
+     // 调用更新方法
+     this.updateCart(cartArr);
+  },
+
+   // 全选按钮
+   changeCheckAll() {
+    let {
+      checkAll,
+      cartArr
+    } = this.data;
+    cartArr.forEach(v => {
+        v.goods_checked = !checkAll;
+      });
+    this.updateCart(cartArr);
+  },
+
   //更新总价格，总数量，本地存储
-  updataCart(cartArr){
-    
+  updateCart(cartArr){
+    let totalCount = 0
+    let totalMoney = 0
+    // 遍历cartArr
+    cartArr.forEach(v=>{
+      if(v.goods_checked){
+        totalMoney += v.goods_count * v.goods_price;
+        ++totalCount;
+      }
+    });
+    this.setData({
+      totalCount,
+      totalMoney,
+      cartArr,
+      checkAll:cartArr.length===totalCount
+    })
+    //更新本地存储
+    wx.setStorageSync('cartArr',cartArr)
   },
 
   /**
@@ -71,6 +112,7 @@ Page({
       cartArr
     })
     console.log(this.data.cartArr);
+    this.updateCart(cartArr)
   },
 
   /**

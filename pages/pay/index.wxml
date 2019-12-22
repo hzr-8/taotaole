@@ -27,7 +27,7 @@
 </view>
 <view class="fixed-bar">
   <view class="fixed-bar-left">
-    <view class="total-price">合计：<text class="number">123123</text></view>
+    <view class="total-price">合计：<text class="number">{{totalPrice}}</text></view>
     <view class="express">包含运费</view>
   </view>
   <view class="bar-btn">支付({{cartData.length}})</view>

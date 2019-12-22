@@ -6,7 +6,8 @@ Page({
    */
   data: {
     address:{},
-    cartData:[]
+    cartData:[],
+    totalPrice:0
   },
 
   /**
@@ -24,10 +25,16 @@ Page({
         return item.goods_checked===true
     })
     // console.log(arr);
+    //获取总价格
+    let totalPrice = this.data.totalPrice
+    arr.forEach(item=>{
+      totalPrice += item.goods_count*item.goods_price
+    })
     //存入数据
     this.setData({
       address,
-      cartData:arr
+      cartData:arr,
+      totalPrice
     })
   },
 

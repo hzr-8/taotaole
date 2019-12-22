@@ -15,7 +15,7 @@ Page({
   checkPhoto(e) {
     console.log(e);
     wx.previewImage({
-      urls: [e.currentTarget.dataset.url]
+      urls: e.currentTarget.dataset.url.map(v=>v.pics_big)
     })
   },
   //跳转购物车页面

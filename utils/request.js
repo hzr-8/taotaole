@@ -25,8 +25,10 @@ export const myRequest = (params) => {
       complete: () => {
         // 不管成功还是失败都执行隐藏提示框
         wx.hideLoading();
-        // 在手机里面，还有主动调用隐藏加载的API
+        // 下拉刷新结束
         wx.stopPullDownRefresh();
+        //隐藏导航栏刷新小菊花
+        wx.hideNavigationBarLoading();
       }
     });
   })

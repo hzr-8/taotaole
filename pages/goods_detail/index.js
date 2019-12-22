@@ -123,6 +123,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    //获取系统信息 wx.getSystemInfoSync()
+    // console.log(wx.getSystemInfoSync());
     const {
       goods_id
     } = options

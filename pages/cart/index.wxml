@@ -62,5 +62,5 @@
 <!-- 购物车为空 -->
 <view class="empty-cart" wx:if="{{ cartArr.length === 0 }}">
   <image class="empty-cart-svg" src="/images/cart.svg"></image>
-  <navigator class="empty-cart-btn" url="/pages/index/index" open-type="switchTab">去首页</navigator>
+  <navigator class="empty-cart-btn" url="/pages/index/index" open-type="switchTab">购物车空空如也，去首页看看吧~</navigator>
 </view>

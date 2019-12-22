@@ -141,7 +141,7 @@ page{
   height: 400rpx;
 }
 .empty-cart-btn{
-  border:1rpx solid red;
+  border:5rpx solid red;
   padding: 30rpx;
   border-radius: 10rpx;
 }

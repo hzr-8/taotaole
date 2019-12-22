@@ -1,2 +1,34 @@
-<!--pages/pay/index.wxml-->
-<text>pages/pay/index.wxml</text>
+<!-- pages/pay/index.wxml -->
+<view class="address">
+  <view class="name">收货人：{{address.userName}}</view>
+  <view class="phone">电话：{{address.telNumber}}</view>
+  <view class="city">地址：{{address.addressDetail}}</view>
+</view>
+<view class="shop">
+  <view class="shop-title">购物车</view>
+  <view class="shop-list">
+    <block wx:for="{{cartData}}" wx:key="goods_id">
+      <view class="shop-item">
+        <view class="shop-item-left">
+          <image src="{{item.goods_small_logo}}" />
+        </view>
+        <view class="shop-item-right">
+          <view class="shop-item-right-top">
+            <view class="shop-name">{{item.goods_name}}</view>
+          </view>
+           <view class="shop-item-right-bottom">
+             <view class="shop-price">{{item.goods_price}}</view>
+             <view class="shop-count">{{item.goods_count}}</view>
+           </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="fixed-bar">
+  <view class="fixed-bar-left">
+    <view class="total-price">合计：<text class="number">123123</text></view>
+    <view class="express">包含运费</view>
+  </view>
+  <view class="bar-btn">支付({{cartData.length}})</view>
+</view>

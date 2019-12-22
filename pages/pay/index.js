@@ -5,14 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    address:{},
+    cartData:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //本地获取收货地址
+    const address = wx.getStorageSync('address');
+    // console.log(address);
+    //本地获取要购买的商品
+    const cartData = wx.getStorageSync('cartArr')
+    // console.log(cartData);
+    //遍历数组，当商品被选中时才是要购买的商品
+    const arr = cartData.filter(item=>{
+        return item.goods_checked===true
+    })
+    // console.log(arr);
+    //存入数据
+    this.setData({
+      address,
+      cartData:arr
+    })
   },
 
   /**

@@ -1,4 +1,6 @@
 // pages/goods_detail/index.js
+const app = getApp()
+import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
 
   /**
@@ -6,7 +8,8 @@ Page({
    */
   data: {
     detailData: {},
-    introduce: ''
+    introduce: '',
+    active:false
   },
   //查看图片
   checkPhoto(e) {
@@ -20,6 +23,57 @@ Page({
     wx.switchTab({
       url: '/pages/cart/index'
     });
+  },
+  //收藏商品
+  addCollect(){
+    const collectArr = wx.getStorageSync('collectArr')||[]
+    let active = this.data.active
+    const goodsIndex = collectArr.findIndex(item=>{
+      //如果有就返回索引值，没有返回的是-1
+      return item.goods_id===this.data.detailData.goods_id
+    })
+    //没有就添加
+    if(goodsIndex===-1){
+        //获取需要的数据
+      const{
+        goods_id,
+        goods_name,
+        goods_price,
+        goods_small_logo
+      }=this.data.detailData
+      //添加到数组中
+      collectArr.push({goods_id,
+        goods_name,
+        goods_price,
+        goods_small_logo,
+        active:!active})
+      //消息提示
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'success',
+        duration: 1500,
+        success: (result)=>{
+          active=!active
+          this.setData({active})
+          //存入本地
+          wx.setStorageSync('collectArr',collectArr)
+        },
+      });
+    }else{
+      collectArr.splice(goodsIndex,1)
+        //消息提示
+      wx.showToast({
+        title: '取消成功',
+        icon: 'success',
+        duration: 1500,
+        success: (result)=>{
+          active=!active
+          this.setData({active})
+          //存入本地
+          wx.setStorageSync('collectArr',collectArr)
+        },
+      });
+    }
   },
   //加入购物车
   addToCart() {
@@ -68,11 +122,23 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     const {
       goods_id
     } = options
-    wx.request({
+    await app.myRequest({
+      url: "goods/detail",
+      data: {
+        goods_id: goods_id
+      },
+    }).then(res=>{
+      this.setData({
+        detailData: res,
+        // 富文本详情内容，由于 ios 系统不支持 webp 图片格式，替换成 jpg 格式
+        introduce: res.goods_introduce.replace(/jpg.+?webp/g, 'jpg')
+      })
+    })
+    /* await wx.request({
       url: "https://api.zbztb.cn/api/public/v1/goods/detail",
       data: {
         goods_id: goods_id
@@ -84,7 +150,20 @@ Page({
           introduce: res.data.message.goods_introduce.replace(/jpg.+?webp/g, 'jpg')
         })
       }
+    }) */
+    //从本地获取商品是否有收藏
+    const collectArr = wx.getStorageSync('collectArr');
+    //用filter遍历数组
+    let arr = collectArr.filter(item=>{
+      if(item.goods_id===this.data.detailData.goods_id){
+        return true
+      }
     })
+    if(arr.length){
+      this.setData({
+        active:arr[0].active
+      })
+    }
   },
 
   /**

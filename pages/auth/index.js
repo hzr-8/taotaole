@@ -1,18 +1,108 @@
 // pages/auth/index.js
+const app = getApp()
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
+import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    encryptedData: '',
+    rawData: '',
+    iv: '',
+    signature: '',
+    code: ''
   },
+  //获取用户信息
+  getUserInfo() {
+    //获取用户信息
+    wx.getUserInfo({
+      withCredentials: 'false',
+      lang: 'zh_CN',
+      timeout: 10000,
+      success: (result) => {
+        console.log(result);
+        this.setData({
+          encryptedData: result.encryptedData,
+          rawData: result.rawData,
+          iv: result.iv,
+          signature: result.signature
+        })
+        //微信登录
+        wx.login({
+          timeout: 10000,
+          success: (result) => {
+            // console.log(result);
+            //获取登录返回的code
+            this.setData({
+              code: result.code
+            })
+          },
+        });
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  },
+  //授权
+  login() {
 
+    app.myRequest({
+      url: 'users/wxlogin',
+      data: {
+        ...this.data
+      },
+      method: 'POST'
+    }).then(res => {
+      console.log(res);
+      // 将数据本地存储起来
+      wx.setStorageSync('token', res.token);
+      wx.setStorageSync('rawData', this.data.rawData);
+      //消息提示
+      wx.showToast({
+        title: '授权成功',
+        icon: 'success',
+        duration: 1500,
+        success: (result) => {
+          wx.navigateTo({
+            url: '/pages/pay/index',
+          })
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取用户当前的授权状态
+    wx.getSetting({
+      success: (result) => {
+        console.log(result);
+        console.log(result.authSetting)
+        if (result.authSetting['scope.userInfo'] === false) {
+          //打开用户设置界面
+          wx.openSetting({
+            success: (result) => {
+              if (result.authSetting['scope.userInfo'] === true) {
+                //调用函数，获取用户信息
+                this.getUserInfo()
+              }
+            },
+            fail: () => {},
+            complete: () => {}
+          });
+        } else {
+          //调用函数，获取用户信息
+          this.getUserInfo()
+        }
 
+      },
+
+    });
   },
 
   /**

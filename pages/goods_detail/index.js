@@ -154,7 +154,7 @@ Page({
       }
     }) */
     //从本地获取商品是否有收藏
-    const collectArr = wx.getStorageSync('collectArr');
+    const collectArr = wx.getStorageSync('collectArr')||[];
     //用filter遍历数组
     let arr = collectArr.filter(item=>{
       if(item.goods_id===this.data.detailData.goods_id){

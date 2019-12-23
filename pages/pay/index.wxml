@@ -30,5 +30,6 @@
     <view class="total-price">合计：<text class="number">{{totalPrice}}</text></view>
     <view class="express">包含运费</view>
   </view>
-  <view class="bar-btn">支付({{cartData.length}})</view>
+  <!-- 支付之前要获取用户信息，必须用button按钮设置open-type -->
+  <view class="bar-btn" bindtap="pay">支付({{cartData.length}})</view>
 </view>

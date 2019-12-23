@@ -15,9 +15,9 @@ Page({
     code: ''
   },
   //获取用户信息
-  getUserInfo() {
+  async getUserInfo() {
     //获取用户信息
-    wx.getUserInfo({
+    await wx.getUserInfo({
       withCredentials: 'false',
       lang: 'zh_CN',
       timeout: 10000,
@@ -29,57 +29,15 @@ Page({
           iv: result.iv,
           signature: result.signature
         })
-        //微信登录
-        wx.login({
-          timeout: 10000,
-          success: (result) => {
-            // console.log(result);
-            //获取登录返回的code
-            this.setData({
-              code: result.code
-            })
-          },
-        });
       },
       fail: () => {},
       complete: () => {}
     });
   },
   //授权
-  login() {
-
-    app.myRequest({
-      url: 'users/wxlogin',
-      data: {
-        ...this.data
-      },
-      method: 'POST'
-    }).then(res => {
-      console.log(res);
-      // 将数据本地存储起来
-      wx.setStorageSync('token', res.token);
-      wx.setStorageSync('rawData', this.data.rawData);
-      //消息提示
-      wx.showToast({
-        title: '授权成功',
-        icon: 'success',
-        duration: 1500,
-        success: (result) => {
-          wx.navigateTo({
-            url: '/pages/pay/index',
-          })
-        },
-        fail: () => {},
-        complete: () => {}
-      });
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    //获取用户当前的授权状态
-    wx.getSetting({
+  async login() {
+     //获取用户当前的授权状态
+     await wx.getSetting({
       success: (result) => {
         console.log(result);
         console.log(result.authSetting)
@@ -103,6 +61,64 @@ Page({
       },
 
     });
+    if(!this.data.iv){
+      wx.showToast({
+        title: '请重新授权',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: true,
+        success: (result)=>{
+          
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+      return
+    }
+    //微信登录
+    await wx.login({
+      timeout: 10000,
+      success: (result) => {
+        // console.log(result);
+        //获取登录返回的code
+        this.setData({
+          code: result.code
+        })
+        app.myRequest({
+          url: 'users/wxlogin',
+          data: {
+            ...this.data
+          },
+          method: 'POST'
+        }).then(res => {
+          console.log(res);
+          // 将数据本地存储起来
+          wx.setStorageSync('token', res.token);
+          wx.setStorageSync('rawData', this.data.rawData);
+          //消息提示
+          wx.showToast({
+            title: '授权成功',
+            icon: 'success',
+            duration: 1500,
+            success: (result) => {
+              wx.navigateTo({
+                url: '/pages/pay/index',
+              })
+            },
+            fail: () => {},
+            complete: () => {}
+          });
+        })
+      },
+    });
+    
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+   
   },
 
   /**

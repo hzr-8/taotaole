@@ -1,7 +1,9 @@
 /* pages/user/index.wxss */
-page{
+page {
   background-color: #f4f4f4;
+  position: relative;
 }
+
 .head {
   width: 750rpx;
   height: 420rpx;
@@ -9,11 +11,13 @@ page{
   display: flex;
   justify-content: center;
   align-items: center;
+
   &-img {
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
+
     image {
       width: 140rpx;
       height: 140rpx;
@@ -22,5 +26,76 @@ page{
       border: 5rpx solid #fff;
     }
   }
+}
 
+.box {
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  color: rgb(69, 124, 224);
+
+  .history {
+    position: relative;
+    top: -60rpx;
+    height: 120rpx;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10rpx;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 10rpx;
+    }
+  }
+
+  .order {
+    background-color: #fff;
+    &-title {
+      height: 75rpx;
+      padding: 25rpx;
+      padding-bottom: 0;
+      border-bottom: 1rpx solid #ddd;
+    }
+
+    &-list {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10rpx;
+      padding-bottom: 20rpx;
+
+      .order-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10rpx;
+        icon{
+          color: red;
+          font-size: 45rpx;
+          margin-bottom: 10rpx;
+        }
+      }
+    }
+  }
+  .address{
+    background-color: #fff;
+    height: 85rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10rpx;
+    margin: 20rpx 0;
+  }
+  .box2{
+    .address{
+      margin: 0;
+      border-bottom: 1rpx solid #ddd;
+    }
+  }
 }

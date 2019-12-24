@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rawData: {}
+    rawData: {},
+    collect:0
   },
   //登录
   login() {
@@ -43,6 +44,10 @@ Page({
         rawData
       })
     }
+    const collect = wx.getStorageSync('collectArr')
+    this.setData({
+      collect:collect.length
+    })
   },
 
   /**

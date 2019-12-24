@@ -1,6 +1,7 @@
 /* pages/user/index.wxss */
 page {
   background-color: #f4f4f4;
+  position: relative;
 }
 .head {
   width: 750rpx;
@@ -21,4 +22,68 @@ page {
   height: 140rpx;
   border-radius: 50%;
   border: 5rpx solid #fff;
+}
+.box {
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  color: #457ce0;
+}
+.box .history {
+  position: relative;
+  top: -60rpx;
+  height: 120rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10rpx;
+}
+.box .history-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rpx;
+}
+.box .order {
+  background-color: #fff;
+}
+.box .order-title {
+  height: 75rpx;
+  padding: 25rpx;
+  padding-bottom: 0;
+  border-bottom: 1rpx solid #ddd;
+}
+.box .order-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10rpx;
+  padding-bottom: 20rpx;
+}
+.box .order-list .order-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rpx;
+}
+.box .order-list .order-item icon {
+  color: red;
+  font-size: 45rpx;
+  margin-bottom: 10rpx;
+}
+.box .address {
+  background-color: #fff;
+  height: 85rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx;
+  margin: 20rpx 0;
+}
+.box .box2 .address {
+  margin: 0;
+  border-bottom: 1rpx solid #ddd;
 }

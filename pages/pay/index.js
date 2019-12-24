@@ -114,6 +114,14 @@ Page({
           method: "post"
         }).then(res => {
           console.log(res);
+          //提示支付成功
+          wx.showToast({
+            title: res,
+            icon: 'success',
+            duration: 1500,
+            success: (result)=>{
+            },
+          });
         })
       },
       fail: () => {},

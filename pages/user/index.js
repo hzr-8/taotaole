@@ -5,14 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    rawData: {}
   },
-
+  //登录
+  login() {
+    wx.navigateTo({
+      url: '/pages/auth/index',
+      success: (result) => {
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -26,7 +35,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    //判断是否登录过,有就直接拿数据渲染
+    if (wx.getStorageSync('rawData')) {
+      const rawData = JSON.parse(wx.getStorageSync('rawData'))
+      // console.log(rawData);
+      this.setData({
+        rawData
+      })
+    }
   },
 
   /**

@@ -102,9 +102,10 @@ Page({
             icon: 'success',
             duration: 1500,
             success: (result) => {
-              wx.navigateTo({
-                url: '/pages/pay/index',
-              })
+              //授权成功后返回上一页
+              wx.navigateBack({
+                delta: 1
+              });
             },
             fail: () => {},
             complete: () => {}

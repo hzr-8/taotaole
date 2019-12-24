@@ -1,2 +1,11 @@
-<!--pages/user/index.wxml-->
-<text>pages/user/index.wxml</text>
+<!-- pages/user/index.wxml -->
+<view class="head" bind:tap="login">
+  <view class="head-img" wx:if="{{rawData}}">
+    <image src="{{rawData.avatarUrl ||'/images/default.svg'}}" mode="aspectFit" />
+    <view>{{rawData.nickName}}</view>
+  </view>
+  <view class="head-img" wx:else>
+    <image src="/images/default.svg" mode="aspectFit" />
+    <view>登录/注册</view>
+  </view>
+</view>

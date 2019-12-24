@@ -49,8 +49,8 @@ Page({
         consignee_addr: address,
         goods: arr
       },
-      header:{
-        Authorization:wx.getStorageSync('token')
+      header: {
+        Authorization: wx.getStorageSync('token')
       }
     }).then(res => {
       console.log(res);
@@ -89,21 +89,37 @@ Page({
     //调用创建订单函数
     await this.getOrder()
     //结构支付需要的参数
-    const{timeStamp,nonceStr,signType,paySign} = this.data.pay
-    console.log(timeStamp,nonceStr,signType,paySign);
-    //发起支付
-    wx.requestPayment({
+    const {
       timeStamp,
       nonceStr,
-      package:this.data.pay.package,
+      signType,
+      paySign
+    } = this.data.pay
+    console.log(timeStamp, nonceStr, signType, paySign);
+    //发起支付
+    await wx.requestPayment({
+      timeStamp,
+      nonceStr,
+      package: this.data.pay.package,
       signType,
       paySign,
       success: (result) => {
         console.log(result);
+        //查看订单支付状态
+        app.myRequest({
+          url: 'my/orders/chkOrder',
+          data: {
+            order_number: this.data.order_number
+          },
+          method: "post"
+        }).then(res => {
+          console.log(res);
+        })
       },
       fail: () => {},
       complete: () => {}
     });
+
   },
 
   /**

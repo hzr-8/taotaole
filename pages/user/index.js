@@ -1,4 +1,7 @@
 // pages/user/index.js
+const app = getApp()
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
+import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
 
   /**
@@ -16,6 +19,12 @@ Page({
       },
       fail: () => {},
       complete: () => {}
+    });
+  },
+  //查询全部订单
+  allOrder(){
+    wx.navigateTo({
+      url: '/pages/order/index'
     });
   },
   /**

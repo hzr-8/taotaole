@@ -1,2 +1,36 @@
-<!--pages/order/index.wxml-->
-<text>pages/order/index.wxml</text>
+<!-- pages/order/index.wxml -->
+<view class="tabs">
+  <view class="tabs-item {{tabIndex===0?'active':''}}" bind:tap="changeTab" data-index="0">
+    全部
+  </view>
+  <view class="tabs-item {{tabIndex===1?'active':''}}" bind:tap="changeTab" data-index="1">
+    待付款
+  </view>
+  <view class="tabs-item {{tabIndex===2?'active':''}}" bind:tap="changeTab" data-index="2">
+    已付款
+  </view>
+  <view class="tabs-item {{tabIndex===3?'active':''}}" bind:tap="changeTab" data-index="3">
+    退款/退货
+  </view>
+</view>
+<!-- 商品列表 -->
+<view class="order-list">
+  <block wx:for="{{orders}}" wx:key="order_id">
+    <view class="order-item">
+      <view class="order-item-left">
+        <image src="{{item.goods[0].goods_small_logo}}" />
+      </view>
+      <view class="order-item-right">
+        <view class="order-item-right-top">
+          <view class="order-name">{{item.goods[0].goods_name}}</view>
+        </view>
+        <view class="order-item-right-bottom">
+          <view class="order-price">{{item.goods[0].goods_price}}</view>
+          <view class="order-count">{{item.goods[0].goods_number}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="total-price">共{{item.total_count}}件商品 总计：￥{{item.total_price}}(含运费：0.00)</view>
+    <view class="order-number">订单号:{{item.order_number}}</view>
+  </block>
+</view>

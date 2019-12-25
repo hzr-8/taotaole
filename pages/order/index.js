@@ -1,18 +1,39 @@
 // pages/order/index.js
+const app = getApp()
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
+import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    orders:[],
+    tabIndex:0
+  },
+  //切换tab栏
+  changeTab(e){
+    // console.log(e);
+    let {tabIndex} = this.data.tabIndex
+    tabIndex = +e.currentTarget.dataset.index
+    this.setData({tabIndex})
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.myRequest({
+      url:'my/orders/all',
+      data:{
+        type:1
+      }
+    }).then(res=>{
+      // console.log(res);
+      this.setData({
+        orders:res.orders
+      })
+    })
   },
 
   /**

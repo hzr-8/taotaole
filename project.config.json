@@ -50,8 +50,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/order/index",
-					"pathName": "pages/order/index",
+					"name": "pages/auth/index",
+					"pathName": "pages/auth/index",
 					"query": "",
 					"scene": null
 				}

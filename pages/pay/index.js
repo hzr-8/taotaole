@@ -78,7 +78,7 @@ Page({
   },
   //支付
   async pay() {
-    //判断有没有token，没有token就跳转到授权页面
+      //判断有没有token，没有token就跳转到授权页面
     const token = wx.getStorageSync('token')
     if (!token) {
       wx.navigateTo({
@@ -97,7 +97,7 @@ Page({
     } = this.data.pay
     console.log(timeStamp, nonceStr, signType, paySign);
     //发起支付
-    await wx.requestPayment({
+    wx.requestPayment({
       timeStamp,
       nonceStr,
       package: this.data.pay.package,
@@ -119,7 +119,11 @@ Page({
             title: res,
             icon: 'success',
             duration: 1500,
-            success: (result)=>{
+            success: (result) => {
+              //支付成功后重定向到订单页面
+              wx.redirectTo({
+                url: '/pages/order/index'
+              });
             },
           });
         })
@@ -127,7 +131,6 @@ Page({
       fail: () => {},
       complete: () => {}
     });
-
   },
 
   /**
